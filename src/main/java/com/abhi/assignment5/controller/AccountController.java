@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping(value = "/accounts",produces = {MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE})
+@RequestMapping(value = "/accounts", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 @Validated
-@Tag(name = "Account Management API",description = "API for all account related operations.")
+@Tag(name = "Account Management API", description = "API for all account related operations.")
 public interface AccountController {
     @GetMapping("/{accountID}")
     @Operation(summary = "Get all information")

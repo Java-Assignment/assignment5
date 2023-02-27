@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
 
-public interface AccountEnrichmentRepo extends MongoRepository<AccountEnrichment,String> {
+public interface AccountEnrichmentRepo extends MongoRepository<AccountEnrichment, String> {
     Optional<AccountEnrichment> findByAccountID(String accountID);
 }

@@ -14,8 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountFinalResponseRepo accountFinalResponseRepo;
     @Autowired
@@ -26,23 +27,23 @@ public class AccountServiceImpl implements AccountService{
     private CustomerEnrichmentRepo customerEnrichmentRepo;
     @Autowired
     private AccountMapper accountMapper;
+
     @Override
     public AccountFinalResponse get(String accountID) throws AppAccountNotFoundException {
-        Optional<Account> ac=accountsRepo.findByAccountID(accountID);
-        Optional<AccountEnrichment> accountEnrichment=accountEnrichmentRepo.findByAccountID(accountID);
-        Optional<CustomerEnrichment> customerEnrichment=customerEnrichmentRepo.findByCustomerID(accountID);
-        if(ac.isPresent()&& accountEnrichment.isPresent() && customerEnrichment.isPresent()){
-            Account account=ac.get();
-            AccountFinalResponse accountFinalResponse=accountMapper.convertActoAfr(account);
-            AccountEnrichment ar=accountEnrichment.get();
-            accountFinalResponse=accountMapper.convertAetoAfr(ar);
-            CustomerEnrichment ce=customerEnrichment.get();
-            accountFinalResponse=accountMapper.convertCetoAfr(ce);
-            AccountFinalResponse accountFinalResponse1=accountFinalResponseRepo.save(accountFinalResponse);
-            return  accountFinalResponse1;
-        }
-        else {
-            throw new AppAccountNotFoundException("Account not found.account:"+accountID);
+        Optional<Account> ac = accountsRepo.findByAccountID(accountID);
+        Optional<AccountEnrichment> accountEnrichment = accountEnrichmentRepo.findByAccountID(accountID);
+        Optional<CustomerEnrichment> customerEnrichment = customerEnrichmentRepo.findByCustomerID(accountID);
+        if (ac.isPresent() && accountEnrichment.isPresent() && customerEnrichment.isPresent()) {
+            Account account = ac.get();
+            AccountFinalResponse accountFinalResponse1 = accountMapper.convertActoAfr(account);
+            AccountEnrichment ar = accountEnrichment.get();
+            AccountFinalResponse accountFinalResponse2 = accountMapper.convertAetoAfr(ar);
+            CustomerEnrichment ce = customerEnrichment.get();
+            AccountFinalResponse accountFinalResponse3 = accountMapper.convertCetoAfr(ce);
+            AccountFinalResponse accountFinalResponsefinal = accountFinalResponseRepo.save(accountFinalResponse1);
+            return accountFinalResponsefinal;
+        } else {
+            throw new AppAccountNotFoundException("Account not found.account:" + accountID);
         }
     }
 }
